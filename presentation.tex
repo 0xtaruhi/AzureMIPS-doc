@@ -4,6 +4,7 @@
 
 \usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
 \usepackage{graphicx,pstricks,listings,stackengine}
+\usepackage{subcaption}
 
 \author{李睿潇、朱元依、张政镒、李少群}
 \title{AzureMIPS——顺序双发射11级流水处理器}
@@ -43,25 +44,43 @@
 \section{工作介绍}
 
 \begin{frame}
-    \frametitle{概述}
+    \frametitle{开发语言}
 
-    \begin{minipage}[c]{0.7\linewidth}
-    本次参赛所实现的处理器（包括高速缓存部分）全部使用以Scala为基础的新锐硬件开发语言SpinalHDL
-    进行开发设计。通过将SpinalHDL的源码转换为Verilog在FPGA上进行综合、实现与验证。
+    % \begin{minipage}[c]{0.7\linewidth}
+    % 本次参赛所实现的处理器（包括高速缓存部分）全部使用以Scala为基础的新锐硬件开发语言SpinalHDL
+    % 进行开发设计。通过将SpinalHDL的源码转换为Verilog在FPGA上进行综合、实现与验证。
 
-    利用SpinalHDL，我们实现了硬件设计的模块\textbf{参数化}，同时得以其语言特性，模块之间的连接也有相当高的\textbf{灵活
-    性}。由于SpinalHDL不需要像Chisel一样通过中间层转换，其获得的Verilog代码可读性更高，给后续Debug带来了便利。
+    % 利用SpinalHDL，我们实现了硬件设计的模块\textbf{参数化}，同时得以其语言特性，模块之间的连接也有相当高的\textbf{灵活
+    % 性}。由于SpinalHDL不需要像Chisel一样通过中间层转换，其获得的Verilog代码可读性更高，给后续Debug带来了便利。
 
-    我们工程的所有源代码已经在\href{https://github.com/0xtaruhi/AzureMIPS}{\color{deepblue}{GitHub}}上开源。
-    \end{minipage}\hfill
-    \begin{minipage}{0.25\linewidth}
-        \begin{figure}
+    % 我们工程的所有源代码已经在\href{https://github.com/0xtaruhi/AzureMIPS}{\color{deepblue}{GitHub}}上开源。
+    % \end{minipage}\hfill
+    % \begin{minipage}{0.25\linewidth}
+    %     \begin{figure}
+    %         \centering
+    %         \includegraphics[width=\linewidth]{pic/SpinalHDL.png}
+    %         \caption{SpinalHDL}
+    %     \end{figure}
+    % \end{minipage}
+
+    \begin{figure}
+        \centering
+        \begin{subfigure}{.4\textwidth}
             \centering
-            \includegraphics[width=\linewidth]{pic/SpinalHDL.png}
+            \includegraphics[height=2cm]{pic/Scala-full-color.pdf}
+            \caption{Scala}
+        \end{subfigure}
+        \begin{subfigure}{.4\textwidth}
+            \centering
+            \includegraphics[height=2cm]{pic/SpinalHDL.png}
             \caption{SpinalHDL}
-        \end{figure}
-    \end{minipage}
+        \end{subfigure}
+        \caption{Scala与SpinalHDL}
+    \end{figure}
 
+    \begin{block}{参数化、灵活、可读性高。}
+        % 参数化、灵活、可读性高。
+    \end{block}
 
 \end{frame}
 
@@ -114,7 +133,7 @@
 
 \begin{frame}[fragile]
     \frametitle{取指缓冲对双访存的优化}
-    \begin{minipage}[c]{0.4\linewidth}
+\begin{minipage}[c]{0.4\linewidth}
 \begin{lstlisting}
 sw t8, 0(a3)
 lw t7, 8(t0)
