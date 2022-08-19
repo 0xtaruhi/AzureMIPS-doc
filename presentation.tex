@@ -79,7 +79,7 @@
     \end{figure}
 
     \begin{block}{参数化、灵活、可读性高。}
-        % 参数化、灵活、可读性高。
+        SpinalHDL相比于Chisel更有独特的优势
     \end{block}
 
 \end{frame}
@@ -116,7 +116,7 @@
         \item 取指流水线\begin{itemize}
             \item Fetch 1: 仲裁PC，发送虚拟地址至ICache
             \item Fetch 2: 发送通过MMU获得的物理地址，若有异常，则作标记
-            \item Fetch 3: 对ICache返回的指令作快速译码，判断出分支指令，必要时进行PC重定向
+            \item Fetch 3: 对ICache返回的指令作\textbf{分支快速译码}，判断出分支指令，必要时进行PC重定向
         \end{itemize}
         \item 取指缓冲\begin{itemize}
             \item 16-Entries指针FIFO
@@ -273,10 +273,15 @@ class Execute extends Component {
     \frametitle{Bi--Mode分支预测器}
 
     \begin{minipage}[c]{0.45\linewidth}
-        在设计上，我们借鉴了开源的RISC-V处理器玄铁910的分支预测部分，采用了设计简单、
-        性能优秀的Bi--Mode分支预测器。这种分支预测方法融合了局部分支预测和全局分支预测，
-        充分利用了历史分支信息，同时还将倾向于跳转和倾向于不跳转的分支指令分两个表进行存储，
-        有效降低了混叠干扰。
+        % 在设计上，我们借鉴了开源的RISC-V处理器玄铁910的分支预测部分，采用了设计简单、
+        % 性能优秀的Bi--Mode分支预测器。这种分支预测方法融合了局部分支预测和全局分支预测，
+        % 充分利用了历史分支信息，同时还将倾向于跳转和倾向于不跳转的分支指令分两个表进行存储，
+        % 有效降低了混叠干扰。
+        \begin{itemize}
+            \item 借鉴于\textbf{玄铁910}的分支预测设计
+            \item \textbf{融全局与局部}为一体
+            \item 分表存储，降低混叠
+        \end{itemize}
     \end{minipage}\hfill
     \begin{minipage}{0.5\linewidth}
         \medskip
