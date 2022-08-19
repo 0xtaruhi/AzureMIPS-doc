@@ -298,12 +298,13 @@ class Execute extends Component {
 
     \begin{itemize}
         \item 4路组相联
-        \item 4 Banks
+        \item 4 Banks，基于xpm_memory
         \item 每周期可返回128 bit数据（4条指令）
         \item 取指合并\begin{itemize}
-            \item 由于不能保证所需的4条指令在同一个缓存行中，因此每周期需要取
-                  两条Cache Line
+            \item 所需的4条指令不在同一个缓存行中\to 1次请求访问
+                  两条Cache Line，将访问结果合并后输出
         \end{itemize}
+        \item 支持Cache指令
     \end{itemize}
 
 \end{frame}
@@ -312,6 +313,13 @@ class Execute extends Component {
 
 \begin{frame}
     \frametitle{数据高速缓存}
+
+    \begin{itemize}
+        \item 4路组相联
+        \item 基于xpm_memory
+        \item \textbf{真双端口}，一周期两条访存指令 \newline 成本\ll 收益！ 
+        \item 支持Cache指令
+    \end{itemize}
 \end{frame}
 
 \section{系统设计}
