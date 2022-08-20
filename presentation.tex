@@ -4,7 +4,7 @@
 
 \usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
 \usepackage{graphicx,pstricks,listings,stackengine}
-\usepackage{subcaption}
+\usepackage{subcaption,multimedia}
 
 \author{李睿潇、朱元依、张政镒、李少群}
 \title{AzureMIPS——顺序双发射11级流水处理器}
@@ -237,18 +237,16 @@ class Execute extends Component {
 
 \begin{frame}
     \frametitle{访存}
-    \textbf{访存冲突与虚实转换流水级}：该级为决赛提交中拥有的一级流水级，原因在于
-    决赛提交版本中含有TLB，访问需要较长的时间，因此我们对流水线再次进行了切分，其主要功能如下
+    \textbf{预访存流水级}：该级为决赛提交中拥有的一级流水级，其主要功能如下
     \begin{itemize}
-        \item 地址冲突检查\begin{itemize}
-            \item 若出现同时写同一个字对齐后的地址，则进行单发调度
-            \item 若出现使用不同数据通路（DCache与Uncache）的地址，则进行单发调度
-        \end{itemize}
-        \item 虚实地址转换\begin{itemize}
-            \item 访问TLB，获得VPN对应的PFN
-            \item 若出现TLB异常，则对指令作标记，在下一周期中处理
-        \end{itemize}
+        \item 地址冲突检查
+        \item 虚实地址转换
     \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=.7\linewidth]{pic/tlb.pdf}
+        \caption{TLB转换示意图}
+    \end{figure}
 \end{frame}
 
 \begin{frame}
@@ -344,7 +342,7 @@ class Execute extends Component {
     \begin{itemize}
         \item 4路组相联
         \item 基于xpm\_memory
-        \item \textbf{真双端口}，一周期两条访存指令，成本$\ll$收益！ 
+        \item \textbf{真双端口}，一周期两条访存指令，收益$\gg$成本！ 
         \item 支持Cache指令
     \end{itemize}
 
@@ -353,6 +351,29 @@ class Execute extends Component {
         \includegraphics[width=.7\linewidth]{pic/dcache.pdf}
         \caption{数据高速缓存结构示意图}
     \end{figure}
+
+\end{frame}
+
+\section{外设}
+
+\begin{frame}
+    \frametitle{VGA}
+
+    \begin{figure}
+        \centering
+        \begin{subfigure}{.45\textwidth}
+            \centering
+            \includegraphics[height=.7\textwidth]{pic/strip-pic.pdf}
+            \caption{VGA：显示条形图}
+        \end{subfigure}
+        \begin{subfigure}{.45\textwidth}
+            \centering
+            \includegraphics[height=.7\textwidth]{pic/VGA-show-pic.pdf}
+            \caption{VGA：显示图片}
+        \end{subfigure}
+    \end{figure}
+
+    \href{./pic/planeWar.mov}{飞机大战游戏演示}
 
 \end{frame}
 
@@ -387,14 +408,8 @@ class Execute extends Component {
     \begin{minipage}[c]{0.4\linewidth}
         \begin{itemize}
         \item 成功启动uCore
-        \item 并能正确运行uCore的指令:\begin{itemize}
-            \item sh
-            \item cat
-            \item ls
-            \item hello
-            \item forktest
-            \item hash
-        \end{itemize}
+        \item 能正确运行uCore的指令
+        \item 实现了自定义算法指令
     \end{itemize}
     \end{minipage}
     \hfill
@@ -414,42 +429,17 @@ class Execute extends Component {
 
     \begin{minipage}[c]{0.4\linewidth}
         \begin{itemize}
-        \item 尝试启动Linux,但未能成功
+        \item 完成Linux的内核启动流程, 进入\texttt{kernel\_init}函数
         \end{itemize}
     \end{minipage}
     \hfill
     \begin{minipage}{0.5\linewidth}
         \begin{figure}
             \centering
-            \includegraphics[width=1.1\textwidth]{pic/Linux.pdf}
+            \includegraphics[width=1.1\textwidth]{pic/Linux.jpg}
         \end{figure}
     \end{minipage}
 
-\end{frame}
-
-\section{外设}
-
-\begin{frame}
-    \frametitle{VGA}
-
-    \begin{figure}
-        \centering
-        \begin{subfigure}{.45\textwidth}
-            \centering
-            \includegraphics[height=.7\textwidth]{pic/strip-pic.pdf}
-            \caption{VGA：显示条形图}
-        \end{subfigure}
-        \begin{subfigure}{.45\textwidth}
-            \centering
-            \includegraphics[height=.7\textwidth]{pic/VGA-show-pic.pdf}
-            \caption{VGA：显示图片}
-        \end{subfigure}
-    \end{figure}
-
-\end{frame}
-
-\begin{frame}
-    \frametitle{VGA}
 \end{frame}
 
 \end{document}
